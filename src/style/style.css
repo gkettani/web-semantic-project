@@ -1,0 +1,115 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+header
+{
+    background-color: rgb(212, 157, 55);
+}
+
+footer
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+
+    padding: 2rem 0.5rem;
+}
+
+
+.main-section
+{
+    background-image:   linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url(../rsrc/WorldFood.jpg);
+    background-size: fill;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 92vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-desc
+{
+    color: white;
+
+    text-align: center;
+    font-size: 2rem;
+    padding: 0 0 2rem 0;
+}
+
+.search-bar
+{
+    width: inherit;
+    position: relative;
+}
+
+.search-bar .search-input
+{
+    width: 50%;
+    margin-left: 22.5%;
+    background-color: lightgoldenrodyellow;
+    color: black;
+    font-size: 1.7rem;
+    border: 1px solid black;
+    border-radius: 0.5rem 0 0 0.5rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.search-bar .search-input:focus
+{
+    outline: 0.1rem solid orange;
+}
+.search-bar .search-input:focus + button
+{
+    outline: 0.1rem solid orange;
+}
+
+.search-bar .search-button
+{
+    cursor: pointer;
+    position: absolute;
+    left: 72.5% + 1rem;
+    z-index: 0;
+    width: 5%;
+    font-size: 1.7rem;
+    border: 1px solid black;
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 0.2rem 0;
+    color: black;
+    background-color: rgb(241, 192, 100);
+}
+
+.search-bar .search-button::after
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    z-index: 1;
+    font-size: 1.7rem;
+    border: 1px solid black;
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 0.2rem 0;
+    background-color: rgba(241, 192, 100, 0.8);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.search-bar .search-button:active::after
+{
+    opacity: 1;
+}
