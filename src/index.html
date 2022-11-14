@@ -6,23 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/style/style.css"></link>
     <link rel="icon" type="image/x-icon" href="/rsrc/favicon.png"></link>
-    <script type="module" src= "./client" charset="utf-8"></script>
+    <script type="text/javascript" src= "./client/basic.js" charset="utf-8"></script>
+    <!--script type="text/javascript" src= "./client/request.js" charset="utf-8"></script-->
     <title>Food'IF</title>
 </head>
 <body>
-  <!-- header>
-    <a href="index.html"><img src="/rsrc/favicon_rev.png", rel="La fourchette tech"></a>
-  </header -->
-
   <div class="main-section">
     <div class="section-desc">
       <h1>Food'IF</h1>
       <h2>Le moteur de recherche pour vous régaler</h2>
     </div>
     <div class="search-bar">
-      <input class="search-input" type="text" placeholder="Plat...">
-      <button class="search-button">Search</button>
+      <input class="search-input" id="search-input" type="text" placeholder="Plat...">
+      <button class="search-button" onclick="rechercher()">Search</button>
     </div>
+    <div id="resultats"></div>
   </div>
 
   <footer>
