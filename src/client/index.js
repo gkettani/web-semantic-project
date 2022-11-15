@@ -1,31 +1,20 @@
-import webService from './request.js';
+window.addEventListener('load', () => {
 
-let div = document.querySelector('#container');
-let btn = document.querySelector('#btn');
-  
-let query = '';
-/* Query example */
-query = `
-SELECT * WHERE {
-  ?country a dbo:Country; dbo:populationTotal ?population; rdfs:label ?label.
-  FILTER(?population > 15000000 && langMatches(lang(?label), "EN"))
-}
-ORDER BY DESC(?population)
-LIMIT 50`;
+  let searchBtn = document.querySelector('#search-btn');
+  let searchInput = document.querySelector('#search-input');
 
-function render() {
-  webService
-    .request(query)
-    .then((response) => {
-      response.results.bindings.forEach((item) => {
-        let p = document.createElement('p');
-        p.innerHTML = item.label.value;
-        div.appendChild(p);
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+  const redirect = () => {
+    let searchQuery = searchInput.value;
+    if (searchQuery) {
+      window.location.href = `results.html?search=${searchQuery}`;
+    }
+  }
 
-btn.addEventListener('click', render);
+  searchBtn?.addEventListener('click', redirect);
+  searchInput?.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      redirect();
+    }
+  });
+});

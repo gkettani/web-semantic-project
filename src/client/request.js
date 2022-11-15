@@ -15,6 +15,7 @@ const request = async (query) => {
   }
 };
 
-export default {
+const webService = {
   request
 };
+export default webService;
