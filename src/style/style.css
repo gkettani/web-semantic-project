@@ -147,9 +147,16 @@ footer
     border: 1px solid rgba(85, 85, 85, 0.3);
 
 }
+
+.result__name
+{
+    margin: 10px;
+    font-size: 1.5rem;
+}
+
 .result__desc
 {
-    text-overflow: ellipsis;
+    margin: 10px;
 }
 
 .result__img

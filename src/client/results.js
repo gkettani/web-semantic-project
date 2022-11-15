@@ -1,4 +1,5 @@
 import webService from './request.js';
+import { truncate } from './utils.js';
 
 
 window.addEventListener('load', () => {
@@ -8,16 +9,6 @@ window.addEventListener('load', () => {
   const search = urlParams.get('search'); 
   render(div, search)
 });
-  
-// let query = '';
-// /* Query example */
-// query = `
-// SELECT * WHERE {
-//   ?country a dbo:Country; dbo:populationTotal ?population; rdfs:label ?label.
-//   FILTER(?population > 15000000 && langMatches(lang(?label), "EN"))
-// }
-// ORDER BY DESC(?population)
-// LIMIT 50`;
 
 const query = (search) => `
 SELECT ?name, ?img, ?desc, ?country, GROUP_CONCAT(?region;SEPARATOR=", ") AS ?regions WHERE {
@@ -40,12 +31,14 @@ function render(div, search) {
         img_container.classList.add('result__img-container');
         result.appendChild(img_container);
         result.classList.add('result');
-        result.innerHTML += `
-          <div class="result__content">
-            <h2 class="result__title">${item.name.value}</h2>
-            <p class="result__desc">${item.desc.value}</p>
-          </div>
-        `;
+        let name = document.createElement('h2');
+        name.classList.add('result__name');
+        name.innerText = item.name.value;
+        result.appendChild(name);
+        let desc = document.createElement('p');
+        desc.classList.add('result__desc');
+        desc.innerText = truncate(item.desc.value, 100);
+        result.appendChild(desc);
         div.appendChild(result);
       });
     })
