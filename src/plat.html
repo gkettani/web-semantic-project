@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food'IF</title>
+    <link rel="icon" type="image/svg+xml" href="rsrc/favicon.png" />
+    <link rel="stylesheet" href="style/reset.css" />
+    <link rel="stylesheet" href="style/typography.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="style/colonnes.css" />
+    <link rel="stylesheet" href="style/loading.css" />
+</head>
+
+<body>
+    <header>
+        <div class="brand">
+            <a href="index.html" class="logo" title="Retourner à l'accueil">
+                <img src="rsrc/favicon.png" alt="" />
+                <h1>Food’IF</h1>
+            </a>
+            <p class="h3">Le moteur de recherche pour vous régaler</p>
+        </div>
+    </header>
+
+    <main class="sheet profil colonnes">
+        <div class="colonne-principale">
+            <h2 class="nom" data-key="nom"></h2>
+
+            <div data-key="description"></div>
+
+            <div data-contains-slot="positions-list">
+                <br />
+                <h3>Liste d'ingrédients:</h3>
+                <div data-key="positions-list"></div>
+            </div>
+        </div>
+
+        <div class="colonne-secondaire">
+            <img data-key="image-personne" src="" alt="">
+
+            <h3>Informations</h3>
+
+            <dl class="biographie-attributs">
+                <!-- <div data-contains-slot="date-naissance">
+                    <dt>Date de naissance</dt>
+                    <dd data-key="date-naissance"></dd>
+                </div>
+                <div data-contains-slot="lieu-naissance">
+                    <dt>Lieu de naissance</dt>
+                    <dd data-key="lieu-naissance"></dd>
+                </div>
+                <div data-contains-slot="date-deces">
+                    <dt>Date de décès</dt>
+                    <dd data-key="date-deces"></dd>
+                </div>
+                <div data-contains-slot="lieu-deces">
+                    <dt>Lieu de décès</dt>
+                    <dd data-key="lieu-deces"></dd>
+                </div> -->
+            </dl>
+
+            <dl class="famille-attributs">
+                <!-- <div data-contains-slot="pere">
+                    <dt>Père</dt>
+                    <dd data-key="pere"></dd>
+                </div>
+                <div data-contains-slot="mere">
+                    <dt>Mère</dt>
+                    <dd data-key="mere"></dd>
+                </div>
+                <div data-contains-slot="fratrie">
+                    <dt>Fratrie</dt>
+                    <dd data-key="fratrie"></dd>
+                </div>
+                <div data-contains-slot="conjoint">
+                    <dt>Conjoint</dt>
+                    <dd data-key="conjoint"></dd>
+                </div>
+                <div data-contains-slot="enfants">
+                    <dt>Enfants</dt>
+                    <dd data-key="enfants"></dd>
+                </div> -->
+            </dl>
+
+            <div data-contains-slot="profil-liste-partis">
+                <h3>Régions associées: </h3>
+                <ul data-key="profil-liste-partis"></ul>
+            </div>
+            <!-- <div data-contains-slot="profil-formation">
+                <h3>Formation</h3>
+                <ul data-key="profil-formation"></ul>
+            </div> -->
+            <!-- <div data-contains-slot="signature-personne">
+                <h3>Signature</h3>
+                <img class="signature" data-key="signature-personne" src="" alt="">
+            </div> -->
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <b>Source des données :</b> <span data-key="urlwikidata"></span> sur Wikidata
+        </div>
+        <div class="drapeau-francais">
+            <span class="sr-only">Drapeau français</span>
+        </div>
+    </footer>
+
+    <!-- <script src="scripts/Slots.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/requetes.js"></script>
+    <script src="scripts/profil.js"></script> -->
+
+    <script src="client/request.js"></script>
+</body>
+
+</html>
