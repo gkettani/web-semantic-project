@@ -6,3 +6,10 @@ SELECT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?countryName; SEPARATOR=", ") A
     OPTIONAL {?dish dbo:ingredient ?ingredient. ?ingredient rdfs:label ?ingredientName. FILTER(langMatches(lang(?ingredientName), "FR"))}
     FILTER(regex(?name, "${search}", "i") && langMatches(lang(?name), "FR") && langMatches(lang(?desc), "FR"))
 }`;
+
+export const countryQuery = (search) =>`
+SELECT DISTINCT ?name, ?img, ?desc WHERE {
+        ?dish a dbo:Food; dbo:country ?country; rdfs:label ?name; dbo:thumbnail ?img; rdfs:comment ?desc.
+        ?country rdfs:label ?countryName.
+        FILTER(regex(?countryName, "${search}", "i") && langMatches(lang(?countryName), "FR") && langMatches(lang(?desc), "FR") && langMatches(lang(?name), "FR"))
+}`;
