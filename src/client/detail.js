@@ -1,0 +1,63 @@
+import webService from './request.js';
+
+
+window.addEventListener('load', () => {
+  let div = document.querySelector('#details-container');
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const search = urlParams.get('search'); 
+  render(div, search)
+});
+
+const query = (search) => `
+SELECT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?countryName; SEPARATOR=", ") AS ?countries, GROUP_CONCAT(DISTINCT ?regionName; SEPARATOR=", ") AS ?regions, GROUP_CONCAT(DISTINCT ?ingredientName; SEPARATOR=", ") AS ?ingredients WHERE {
+    ?dish a dbo:Food; rdfs:label ?name; dbo:thumbnail ?img; rdfs:comment ?desc.
+    OPTIONAL {?dish dbp:country ?country. ?country rdfs:label ?countryName. FILTER(langMatches(lang(?countryName), "FR"))}
+    OPTIONAL {?dish dbp:region ?region. ?region rdfs:label ?regionName. FILTER(langMatches(lang(?regionName), "FR"))}
+    OPTIONAL {?dish dbo:ingredient ?ingredient. ?ingredient rdfs:label ?ingredientName. FILTER(langMatches(lang(?ingredientName), "FR"))}
+    FILTER(regex(?name, "${search}", "i") && langMatches(lang(?name), "FR") && langMatches(lang(?desc), "FR"))
+}`;
+
+function render(div, search) {
+  webService
+    .request(query(search))
+    .then((response) => {
+      response.results.bindings.forEach((item) => {
+        let detail = document.createElement('div');
+        let subCol = document.createElement('div');
+        let mainCol = document.createElement('div');
+        detail.classList.add('detail');
+        subCol.classList.add('detail--sub');
+        mainCol.classList.add('detail--main');
+
+        let img_container = document.createElement('div');
+        let img = document.createElement('img');
+
+        img.src = item.img.value || 'https://via.placeholder.com/150';
+        img.alt = item.name.value;
+
+        img.classList.add('detail__img');
+        img_container.appendChild(img);
+        img_container.classList.add('detail__img-container');
+        subCol.appendChild(img_container);
+        
+
+        let name = document.createElement('h2');
+        name.classList.add('detail__name');
+        name.innerText = item.name.value;
+        subCol.appendChild(name);
+
+        let desc = document.createElement('p');
+        desc.classList.add('detail__desc');
+        desc.innerText = item.desc.value;
+        mainCol.appendChild(desc);
+
+        detail.append(subCol);
+        detail.append(mainCol);
+        div.appendChild(detail);
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

@@ -39,10 +39,20 @@ function render(div, search) {
         desc.classList.add('result__desc');
         desc.innerText = truncate(item.desc.value, 100);
         result.appendChild(desc);
+        result.addEventListener('click', () => {
+          console.log('Redirecting');
+          redirect(item.name.value);
+        });
         div.appendChild(result);
       });
     })
     .catch((error) => {
       console.log(error);
     });
+}
+
+const redirect = (redirection) => {
+  if (redirection) {
+    window.location.href = `detail.html?search=${redirection}`;
+  }
 }
