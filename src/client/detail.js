@@ -12,7 +12,7 @@ window.addEventListener('load', () => {
 
 function render(div, search) {
   webService
-    .request(basicQuery(search))
+    .request(specificQuery(search))
     .then((response) => {
       response.results.bindings.forEach((item) => {
         //let detail = document.createElement('div');
