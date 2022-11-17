@@ -4,7 +4,7 @@ import { basicQuery, countryQuery } from './libQuery.js';
 
 
 window.addEventListener('load', () => {
-  let div = document.querySelector('#results-container');
+  let div = document.querySelector('#global-container');
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const search = urlParams.get('search'); 
@@ -12,6 +12,16 @@ window.addEventListener('load', () => {
 });
 
 function render(div, search) {
+  let container1 = document.createElement('div');
+  container1.classList.add('result-container');
+  let cont1Title = document.createElement('h1');
+  cont1Title.innerText = "Résultats par plat";
+
+  let container2 = document.createElement('div');
+  container2.classList.add('result-container');
+  let cont2Title = document.createElement('h1');
+  cont2Title.innerText = "Résultats par cuisine régionale";
+  
   webService
     .request(basicQuery(search))
     .then((response) => {
@@ -38,12 +48,18 @@ function render(div, search) {
           console.log('Redirecting');
           redirect(item.name.value);
         });
-        div.appendChild(result);
+        container1.appendChild(result);
       });
+      if(container1.innerText)
+      {
+        div.appendChild(cont1Title);
+        div.appendChild(container1);
+      }
     })
     .catch((error) => {
       console.log(error);
     });
+
     webService
     .request(countryQuery(search))
     .then((response) => {
@@ -70,8 +86,13 @@ function render(div, search) {
           console.log('Redirecting');
           redirect(`detail`, `search`, item.name.value);
         });
-        div.appendChild(result);
+        container2.appendChild(result);
       });
+      if(container2.innerText)
+      {
+        div.appendChild(cont2Title);
+        div.appendChild(container2);
+      }
     })
     .catch((error) => {
       console.log(error);
