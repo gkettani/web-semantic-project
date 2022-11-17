@@ -45,8 +45,7 @@ function render(div, search) {
         desc.innerText = truncate(item.desc.value, 100);
         result.appendChild(desc);
         result.addEventListener('click', () => {
-          console.log('Redirecting');
-          redirect(item.name.value);
+          redirect(`detail`, `search`, item.name.value);
         });
         container1.appendChild(result);
       });
@@ -83,7 +82,6 @@ function render(div, search) {
         desc.innerText = truncate(item.desc.value, 100);
         result.appendChild(desc);
         result.addEventListener('click', () => {
-          console.log('Redirecting');
           redirect(`detail`, `search`, item.name.value);
         });
         container2.appendChild(result);
