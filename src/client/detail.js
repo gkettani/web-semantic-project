@@ -1,5 +1,5 @@
 import webService from './request.js';
-import { basicQuery } from './libQuery.js';
+import { specificQuery } from './libQuery.js';
 
 
 window.addEventListener('load', () => {
