@@ -1,5 +1,5 @@
 import webService from './request.js';
-import { truncate } from './utils.js';
+import { truncate, redirect } from './utils.js';
 import { basicQuery, countryQuery } from './libQuery.js';
 
 
@@ -68,7 +68,7 @@ function render(div, search) {
         result.appendChild(desc);
         result.addEventListener('click', () => {
           console.log('Redirecting');
-          redirect(item.name.value);
+          redirect(`detail`, `search`, item.name.value);
         });
         div.appendChild(result);
       });
@@ -76,10 +76,4 @@ function render(div, search) {
     .catch((error) => {
       console.log(error);
     });
-}
-
-const redirect = (redirection) => {
-  if (redirection) {
-    window.location.href = `detail.html?search=${redirection}`;
-  }
 }

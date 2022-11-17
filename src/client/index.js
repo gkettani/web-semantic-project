@@ -1,20 +1,15 @@
+import { redirect } from `./utils.js`;
+
 window.addEventListener('load', () => {
 
   let searchBtn = document.querySelector('#search-btn');
   let searchInput = document.querySelector('#search-input');
 
-  const redirect = () => {
-    let searchQuery = searchInput.value;
-    if (searchQuery) {
-      window.location.href = `results.html?search=${searchQuery}`;
-    }
-  }
-
-  searchBtn?.addEventListener('click', redirect);
+  searchBtn?.addEventListener('click', redirect(`results`, `search`, searchInput.value));
   searchInput?.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      redirect();
+      redirect(`results`, `search`, searchInput.value);
     }
   });
 });
