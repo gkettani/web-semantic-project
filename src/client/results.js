@@ -12,15 +12,26 @@ window.addEventListener('load', () => {
 });
 
 function render(div, search) {
+  //div de la recherche par plat
+  let divPlats = document.createElement('div');
+  divPlats.classList.add('dishes-container');
+
+  //div de la recherche par region
+  let divRegions = document.createElement('div');
+  divRegions.classList.add("allRegions-container");
+
+  //div contenant les plats (recherche par plat)
   let container1 = document.createElement('div');
   container1.classList.add('result-container');
-  container1.classList.add('dish-container');
+  
+  //txt de recherche par plat
   let cont1Title = document.createElement('h1');
   cont1Title.innerText = "Résultats par plat";
-
+  //txt de recherche par region
   let cont2Title = document.createElement('h1');
   cont2Title.innerText = "Résultats par cuisine régionale";
   
+  //obj contenant les div de chaque region et ses plats
   var listContainer = {};
 
   webService
@@ -52,8 +63,9 @@ function render(div, search) {
       });
       if(container1.innerText)
       {
-        div.insertAdjacentHTML(cont1Title);
-        div.appendChild(container1);
+        divPlats.appendChild(cont1Title);
+        divPlats.appendChild(container1);
+        div.appendChild(divPlats);
       }
     })
     .catch((error) => {
@@ -91,8 +103,9 @@ function render(div, search) {
           listContainer[item.countryName.value] = document.createElement('div');
           let conName = item.countryName.value;
           listContainer[item.countryName.value].classList.add(conName.replace(/ /g,'_'));
+          listContainer[item.countryName.value].classList.add("region-container");
           //description
-          let tempElem = document.createElement('h3');
+          let tempElem = document.createElement('h2');
           tempElem.innerText = item.countryName.value;
           tempElem.classList.add("RegionNameText");
           listContainer[item.countryName.value].appendChild(tempElem);
@@ -106,10 +119,11 @@ function render(div, search) {
       });
       if(Object.keys(listContainer).length!=0)
       {
-        div.appendChild(cont2Title);
+        divRegions.appendChild(cont2Title);
         for(const con in listContainer){
-          div.appendChild(listContainer[con]);
+          divRegions.appendChild(listContainer[con]);
         }
+        div.appendChild(divRegions);
       }
     })
     .catch((error) => {
