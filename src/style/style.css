@@ -7,6 +7,17 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+header {
+    padding: 16px 16px;
+    background-color: #212132;
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    height: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 footer {
     display: flex;
     flex-direction: row;
@@ -30,7 +41,7 @@ body {
     background-size: fill;
     background-repeat: no-repeat;
     background-position: center;
-    height: 92vh;
+    height: calc(100vh - 94px);
     width: 100%;
 
     display: flex;
@@ -193,16 +204,6 @@ body {
     object-fit: contain;
 }
 
-
-header {
-    padding: 16px 16px;
-    background-color: #212132;
-    color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-}
-
 header .brand {
     display: flex;
     flex-direction: row;
@@ -224,7 +225,7 @@ header .brand a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: .8rem;
+    font-size: .5rem;
 }
 
 header .brand a:hover h1 {
