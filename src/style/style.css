@@ -43,10 +43,10 @@ body {
 .main-section {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url(../rsrc/WorldFood.jpg);
-    background-size: fill;
+    /* background-size: fill; */
     background-repeat: no-repeat;
     background-position: center;
-    height: calc(120vh - 94px);
+    height: calc(110vh - 94px);
     width: 100%;
     font-size: 2rem;
     color: white;
@@ -60,7 +60,7 @@ body {
     position: absolute;
     left: 0;
     width: 100%;
-    top: calc(120vh - 104px);
+    top: calc(110vh - 104px);
 }
 
 .main-section svg path {
@@ -278,7 +278,6 @@ header p {
     width: 50%;
     height: 100%;
     max-width: 50%;
-    padding: 2rem 0;
 }
 
 .map-text {

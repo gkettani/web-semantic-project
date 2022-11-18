@@ -22,10 +22,10 @@ var chart = root.container.children.push(am5map.MapChart.new(root, {
     panX: "rotateX",
     panY: "rotateY",
     projection: am5map.geoOrthographic(),
-    paddingBottom: 20,
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingBottom: 50,
+    paddingTop: 50,
+    paddingLeft: 50,
+    paddingRight: 50
 }));
 
 
