@@ -35,7 +35,7 @@ function render(div, search) {
         let img_container = document.createElement('div');
         let img = document.createElement('img');
         img.src = item.img.value;
-        img.onerror = "this.error=null;this.src='../rsrc/unknownDish.png';"
+        img.onerror = function() { this.error=null;this.src='../rsrc/unknownDish.png'; }
         img.alt = item.name.value;
         img.classList.add('result__img');
         img_container.appendChild(img);

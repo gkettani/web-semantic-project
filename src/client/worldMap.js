@@ -1,3 +1,7 @@
+import webService from './request.js';
+import { translateToFR } from './libQuery.js';
+import { redirect } from './utils.js';
+
 am5.ready(function() {
 
 // Create root element
@@ -68,6 +72,21 @@ polygonSeries.mapPolygons.template.on("active", function(active, target) {
     }
     if (target.get("active")) {
     selectCountry(target.dataItem.get("id"));
+    
+    webService
+    .request(translateToFR(target.dataItem.dataContext.name))
+    .then((response) => {
+        let minLength = response.results.bindings[0].frName.length;
+        let search = response.results.bindings[0].frName.value;
+        response.results.bindings.forEach((item) => {
+            let frName = item.frName.value;
+            if(frName.length<minLength){
+                minLength = frName.length;
+                search = frName;
+            }
+        });
+        redirect(`results`, `search`, search);
+    });
     }
     previousPolygon = target;
 });

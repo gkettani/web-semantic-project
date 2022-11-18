@@ -29,3 +29,9 @@ SELECT ?name, ?ingredientName, ?img, ?desc WHERE {
     ?ingredient rdfs:label ?ingredientName.
     FILTER(regex(?ingredientName, "${search}", "i") && langMatches(lang(?ingredientName),"FR") && langMatches(lang(?name),"FR") && langMatches(lang(?desc),"FR"))
 }`;
+
+export const translateToFR = (search) => `
+SELECT ?frName WHERE {
+    ?country a schema:Country; rdfs:label ?enName; rdfs:label ?frName.
+    FILTER(regex(?enName, "^${search}$", "i") && langMatches(lang(?enName),"EN") && langMatches(lang(?frName),"FR"))
+}`;
