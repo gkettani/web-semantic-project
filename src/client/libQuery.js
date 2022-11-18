@@ -22,3 +22,10 @@ SELECT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?countryName; SEPARATOR=", ") A
     OPTIONAL {?dish dbo:ingredient ?ingredient. ?ingredient rdfs:label ?ingredientName. FILTER(langMatches(lang(?ingredientName), "FR"))}
     FILTER(regex(?name, "^${search}$", "i") && langMatches(lang(?name), "FR") && langMatches(lang(?desc), "FR"))
 }`;
+
+export const ingredientQuery = (search) => `
+SELECT ?name, ?ingredientName, ?img, ?desc WHERE {
+    ?dish a dbo:Food; dbo:ingredient ?ingredient; rdfs:label ?name; dbo:thumbnail ?img; rdfs:comment ?desc.
+    ?ingredient rdfs:label ?ingredientName.
+    FILTER(regex(?ingredientName, "${search}", "i") && langMatches(lang(?ingredientName),"FR") && langMatches(lang(?name),"FR") && langMatches(lang(?desc),"FR"))
+}`;

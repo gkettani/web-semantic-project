@@ -162,7 +162,7 @@ body {
 .result__img {
     transition: all 1s;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 100%;
     object-fit: cover;
 }
 
