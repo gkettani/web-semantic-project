@@ -114,6 +114,13 @@ footer
     opacity: 1;
 }
 
+.filter-text {
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  padding: 0 0 2rem 0;
+}
+
 #main
 {
     width: 80%;
