@@ -14,11 +14,10 @@ window.addEventListener('load', () => {
 function render(div, search) {
   let container1 = document.createElement('div');
   container1.classList.add('result-container');
+  container1.classList.add('dish-container');
   let cont1Title = document.createElement('h1');
   cont1Title.innerText = "Résultats par plat";
 
-  let container2 = document.createElement('div');
-  container2.classList.add('result-container');
   let cont2Title = document.createElement('h1');
   cont2Title.innerText = "Résultats par cuisine régionale";
   
@@ -53,7 +52,7 @@ function render(div, search) {
       });
       if(container1.innerText)
       {
-        div.appendChild(cont1Title);
+        div.insertAdjacentHTML(cont1Title);
         div.appendChild(container1);
       }
     })
@@ -86,31 +85,31 @@ function render(div, search) {
         result.addEventListener('click', () => {
           redirect(`detail`, `search`, item.name.value);
         });
-        container2.appendChild(result);
+        //container2.appendChild(result);
         if(!(listContainer[item.countryName.value] !== undefined)){
+          //le grand container de la région
           listContainer[item.countryName.value] = document.createElement('div');
           let conName = item.countryName.value;
-          conName = conName.replace(/ /g,'_');
-          listContainer[item.countryName.value].classList.add(conName);
+          listContainer[item.countryName.value].classList.add(conName.replace(/ /g,'_'));
+          //description
           let tempElem = document.createElement('h3');
           tempElem.innerText = item.countryName.value;
+          tempElem.classList.add("RegionNameText");
           listContainer[item.countryName.value].appendChild(tempElem);
-          listContainer[item.countryName.value].appendChild(result);
-          console.log(listContainer[item.countryName.value]);
+          //element
+          let newDiv = document.createElement('div');
+          newDiv.classList.add('result-container');
+          listContainer[item.countryName.value].appendChild(newDiv); 
         }
-        else{
-          listContainer[item.countryName.value].appendChild(result);
-        }
+        listContainer[item.countryName.value].getElementsByClassName("result-container")[0].appendChild(result);
+
       });
-      if(container2.innerText)
+      if(Object.keys(listContainer).length!=0)
       {
-        // console.log(listContainer[item.countryName.value]);
         div.appendChild(cont2Title);
-       //div.appendChild(container2);
         for(const con in listContainer){
           div.appendChild(listContainer[con]);
         }
-        //listContainer.forEach((divContainer) => {div.appendChild(divContainer)});
       }
     })
     .catch((error) => {
