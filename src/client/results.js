@@ -22,6 +22,8 @@ function render(div, search) {
   let cont2Title = document.createElement('h1');
   cont2Title.innerText = "Résultats par cuisine régionale";
   
+  var listContainer = {};
+
   webService
     .request(basicQuery(search))
     .then((response) => {
@@ -85,11 +87,30 @@ function render(div, search) {
           redirect(`detail`, `search`, item.name.value);
         });
         container2.appendChild(result);
+        if(!(listContainer[item.countryName.value] !== undefined)){
+          listContainer[item.countryName.value] = document.createElement('div');
+          let conName = item.countryName.value;
+          conName = conName.replace(/ /g,'_');
+          listContainer[item.countryName.value].classList.add(conName);
+          let tempElem = document.createElement('h3');
+          tempElem.innerText = item.countryName.value;
+          listContainer[item.countryName.value].appendChild(tempElem);
+          listContainer[item.countryName.value].appendChild(result);
+          console.log(listContainer[item.countryName.value]);
+        }
+        else{
+          listContainer[item.countryName.value].appendChild(result);
+        }
       });
       if(container2.innerText)
       {
+        // console.log(listContainer[item.countryName.value]);
         div.appendChild(cont2Title);
-        div.appendChild(container2);
+       //div.appendChild(container2);
+        for(const con in listContainer){
+          div.appendChild(listContainer[con]);
+        }
+        //listContainer.forEach((divContainer) => {div.appendChild(divContainer)});
       }
     })
     .catch((error) => {
