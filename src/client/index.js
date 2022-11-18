@@ -5,7 +5,9 @@ window.addEventListener('load', () => {
   let searchBtn = document.querySelector('#search-btn');
   let searchInput = document.querySelector('#search-input');
 
-  searchBtn?.addEventListener('click', redirect(`results`, `search`, searchInput.value));
+  searchBtn?.addEventListener("click", function(event){ 
+    redirect(`results`, `search`, searchInput.value);
+  });
   searchInput?.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
       event.preventDefault();

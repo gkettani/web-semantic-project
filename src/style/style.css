@@ -14,7 +14,7 @@ header {
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    height: 100px;
+    height: 60px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -43,7 +43,7 @@ body {
 .main-section {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url(../rsrc/WorldFood.jpg);
-    /* background-size: fill; */
+    background-size: fill;
     background-repeat: no-repeat;
     background-position: center;
     height: calc(110vh - 94px);
@@ -54,13 +54,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .main-section svg {
     position: absolute;
     left: 0;
+    bottom: 0;
     width: 100%;
-    top: calc(110vh - 104px);
 }
 
 .main-section svg path {
