@@ -48,7 +48,7 @@ function render(div, search) {
         result.appendChild(name);
         let desc = document.createElement('p');
         desc.classList.add('result__desc');
-        desc.innerText = truncate(item.desc.value, 100);
+        desc.innerText = truncate(item.desc.value, 200);
         result.appendChild(desc);
         result.addEventListener('click', () => {
           redirect(`detail`, `search`, item.name.value);
@@ -86,7 +86,7 @@ function render(div, search) {
         result.appendChild(name);
         let desc = document.createElement('p');
         desc.classList.add('result__desc');
-        desc.innerText = truncate(item.desc.value, 100);
+        desc.innerText = truncate(item.desc.value, 200);
         result.appendChild(desc);
         result.addEventListener('click', () => {
           redirect(`detail`, `search`, item.name.value);
@@ -124,7 +124,7 @@ function render(div, search) {
         result.appendChild(name);
         let desc = document.createElement('p');
         desc.classList.add('result__desc');
-        desc.innerText = truncate(item.desc.value, 100);
+        desc.innerText = truncate(item.desc.value, 200);
         result.appendChild(desc);
         result.addEventListener('click', () => {
           redirect(`detail`, `search`, item.name.value);
