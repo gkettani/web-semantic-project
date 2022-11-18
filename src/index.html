@@ -22,16 +22,26 @@
       </a>
     </div>
     <div class="search-bar">
-      <input id="search-input" class="search-input" type="text" placeholder="Plat..."  autofocus>
+      <div id="select">
+          <p id="selectText">Tous les critères</p>
+          <img src="./rsrc/arrow.png" />
+          <ul id="list">
+            <li class="option">Tous les critères</li>
+            <li class="option">Plat</li>
+            <li class="option">Pays</li>
+            <li class="option">Ingrédient</li>
+          </ul>
+      </div>
+      <input id="search-input" class="search-input" type="text" placeholder="Rechercher..."  autofocus>
       <button id="search-btn" class="search-button">Search</button>
-      <div class="filter">
+    </div>
+    <div class="filter">
       <br />
       <label class="filter-text"> Filtrer par: </label>
       <select name="choose-filter" id="filter-choice">
         <option value="aucun-choix" selected> Aucun filtre </option>
         <option value="vegetarien"> Plats vegetariens </option>
       </select>
-      </div>
     </div>
     
   </header>
@@ -54,10 +64,11 @@
     </div>
   </main>
 
-  <!-- <footer>
+  <footer>
     <div class="authors">
       By Kirellos Ghobrial, Cen Lu, Aymane Ghanam, Yahia Bellamine, Ghali Kettani, Nathan Brieux
     </div>
-  </footer> -->
+  </footer>
+
 </body>
 </html>

@@ -12,4 +12,24 @@ window.addEventListener('load', () => {
       redirect(`results`, `search`, searchInput.value);
     }
   });
+
+  let select = document.querySelector("#select");
+  let list = document.querySelector("#list");
+  let selectText = document.querySelector("#selectText");
+  let options = document.getElementsByClassName("option");
+
+  select.addEventListener("click", function (event) {
+    list.classList.toggle("open");
+  });
+  for(const option of options){
+    option.addEventListener("click", function (event) {
+      selectText.innerHTML = this.innerHTML;
+      searchInput.placeholder = `Rechercher par ${this.innerHTML}...`;
+      if(this.innerHTML=="Tous les critères"){
+        searchInput.placeholder = `Rechercher...`;
+      }
+    });
+  }
+
 });
+

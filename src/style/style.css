@@ -33,7 +33,7 @@ footer {
     color: white;
     font-size: 1rem;
 
-    padding: 2rem 0.5rem;
+    padding: 2rem 1rem;
 }
 
 body {
@@ -71,16 +71,62 @@ body {
     width: 900px;
     margin: 0 auto;
     transform: translate(-50px, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#select {
+    background: lightgoldenrodyellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: black;
+    width: 180px;
+    height: 100%;
+    padding: 0px 10px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 0.3rem 0 0 0.3rem;
+    padding: 0.2rem 0.5rem;
+}
+
+#select img {
+    color: white;
+    height: 30px;
+}
+
+#select ul {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    list-style: none;
+    background: white;
+    color: #555;
+    width: 100%;
+    border-radius: 4px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+#select ul.open{
+    max-height: 300px;
+}
+
+#select ul li {
+    padding: 10px;
+    cursor: pointer;
 }
 
 .search-bar .search-input {
     width: 50%;
-    margin-left: 22.5%;
     background-color: lightgoldenrodyellow;
     color: black;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     border: 1px solid black;
-    border-radius: 0.3rem 0 0 0.3rem;
     padding: 0.2rem 0.5rem;
 }
 
@@ -88,16 +134,15 @@ body {
     outline: 0.1rem solid orange;
 }
 
-.search-bar .search-input:focus+button {
+.search-bar:focus-within > * {
     outline: 0.1rem solid orange;
 }
 
 .search-bar .search-button {
     cursor: pointer;
-    position: absolute;
     left: 72.5% + 1rem;
     z-index: 0;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: bold;
     border: 1px solid black;
     border-radius: 0 0.3rem 0.3rem 0;
@@ -106,7 +151,7 @@ body {
     background-color: rgb(246, 189, 85);
 }
 
-.search-bar .search-button::after {
+/* .search-bar .search-button::after {
     content: "";
     position: absolute;
     top: 0;
@@ -126,7 +171,7 @@ body {
 
 .search-bar .search-button:active::after {
     opacity: 1;
-}
+} */
 
 .filter{
   text-align: center;
