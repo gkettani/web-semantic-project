@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/style/style.css"></link>
+    <link rel="stylesheet" href="/style/worldMap.css"></link>
     <link rel="icon" type="image/x-icon" href="/rsrc/favicon.png"></link>
     <script type="module" src= "./client/index.js" charset="utf-8"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <title>Food'IF</title>
 </head>
 <body>
@@ -24,11 +29,13 @@
       <button id="search-btn" class="search-button">Search</button>
     </div>
   </div>
+  <script type="text/javascript" src= "./client/worldMap.js" charset="utf-8"></script>
+  <div id="chartdiv"></div>
 
-  <footer>
+  <!-- <footer>
     <div class="authors">
       By Kirellos Ghobrial, Cen Lu, Aymane Ghanam, Yahia Bellamine, Ghali Kettani, Nathan Brieux
     </div>
-  </footer>
+  </footer> -->
 </body>
 </html>
