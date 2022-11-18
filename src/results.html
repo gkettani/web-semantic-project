@@ -7,16 +7,20 @@
     <link rel="stylesheet" href="/style/style.css"></link>
     <link rel="icon" type="image/x-icon" href="/rsrc/favicon.png"></link>
     <script type="module" src= "./client/results.js" charset="utf-8"></script>
+    <script type="module" src="./client/index.js"></script>
     <title>Food'IF</title>
 </head>
 <body>
   <header>
     <div class="brand">
       <a href="index.html" class="logo" title="Retourner à l'accueil">
-        <img src="rsrc/food.png" alt="" />
+        <img src="rsrc/food.png" alt="food" width="50px"/>
         <h1>Food’IF</h1>
       </a>
-      <p class="h3">Le moteur de recherche des plats du monde</p>
+    </div>
+    <div class="search-bar">
+      <input id="search-input" class="search-input" type="text" placeholder="Plat..."  autofocus>
+      <button id="search-btn" class="search-button">Search</button>
     </div>
   </header>
   <main id="main">
