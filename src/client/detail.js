@@ -25,7 +25,8 @@ function render(div, search) {
         let img_container = document.createElement('div');
         let img = document.createElement('img');
 
-        img.src = item.img.value || 'https://via.placeholder.com/150';
+        img.src = item.img.value;
+        img.onerror = function() { this.error=null;this.src='../rsrc/unknownDish.png'; }
         img.alt = item.name.value;
 
         img.classList.add('detail__img');
@@ -79,8 +80,8 @@ function render(div, search) {
 
         /* detail.append(subCol);
         detail.append(mainCol); */
-        div.appendChild(mainCol);
         div.appendChild(subCol);
+        div.appendChild(mainCol);
       });
     })
     .catch((error) => {

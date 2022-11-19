@@ -13,10 +13,6 @@ window.addEventListener('load', () => {
   for(const option of options){
     option.addEventListener("click", function (event) {
       selectText.innerHTML = this.innerHTML;
-      searchInput.placeholder = `Rechercher par ${this.innerHTML}...`;
-      if(this.innerHTML=="Tous les critères"){
-        searchInput.placeholder = `Rechercher...`;
-      }
     });
   }
 
