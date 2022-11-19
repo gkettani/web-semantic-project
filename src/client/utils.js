@@ -6,8 +6,8 @@ export const truncate = (str, length) => {
   }
 };
 
-export const redirect = (template, property, value) => {
-  if (value) {
-    window.location.href = `${template}.html?${property}=${value}`;
+export const redirect = (template, property1, value1, property2, value2) => {
+  if (value1) {
+    window.location.href = `${template}.html?${property1}=${value1}&${property2}=${value2}`;
   }
 }

@@ -29,3 +29,19 @@ SELECT ?name, ?ingredientName, ?img, ?desc WHERE {
     ?ingredient rdfs:label ?ingredientName.
     FILTER(regex(?ingredientName, "${search}", "i") && langMatches(lang(?ingredientName),"FR") && langMatches(lang(?name),"FR") && langMatches(lang(?desc),"FR"))
 }`;
+
+export function addFilter(query, filter)
+{ 
+    if(filter === "vegetarien"){
+        var n = query.lastIndexOf("}");
+        if(n < 0) return query;
+        query = query.substring(0,n) + " FILTER NOT EXISTS { FILTER (contains(?desc, \"poulet\") || contains(?desc, \"boeuf\") || contains(?desc, \"porc\") || contains(?desc, \"dinde\") || contains(?desc, \"domestique\")). }" + query.substring(n);
+    } 
+    return query;
+}
+
+// function insertBeforeLastOccurrence(strToSearch, strToFind, strToInsert) {
+//     var n = strToSearch.lastIndexOf(strToFind);
+//     if (n < 0) return strToSearch;
+//     return strToSearch.substring(0,n) + strToInsert + strToSearch.substring(n);    
+// }
