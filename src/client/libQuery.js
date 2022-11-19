@@ -35,3 +35,13 @@ SELECT ?frName WHERE {
     ?country a schema:Country; rdfs:label ?enName; rdfs:label ?frName.
     FILTER(regex(?enName, "^${search}$", "i") && langMatches(lang(?enName),"EN") && langMatches(lang(?frName),"FR"))
 }`;
+
+export function addFilter(query, filter)
+{ 
+    if(filter === "Plats végétariens"){
+        var n = query.lastIndexOf("}");
+        if(n < 0) return query;
+        query = query.substring(0,n) + " FILTER NOT EXISTS { FILTER (contains(?desc, \"poulet\") || contains(?desc, \"boeuf\") || contains(?desc, \"porc\") || contains(?desc, \"dinde\") || contains(?desc, \"domestique\")). }" + query.substring(n);
+    } 
+    return query;
+}

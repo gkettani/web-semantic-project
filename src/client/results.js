@@ -1,17 +1,18 @@
 import webService from './request.js';
 import { truncate, redirect } from './utils.js';
-import { basicQuery, countryQuery, ingredientQuery } from './libQuery.js';
+import { basicQuery, countryQuery, ingredientQuery, addFilter} from './libQuery.js';
 
 
 window.addEventListener('load', () => {
   let div = document.querySelector('#global-container');
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const search = urlParams.get('search'); 
-  render(div, search)
+  const search = urlParams.get('search');
+  const filter = urlParams.get('filter'); 
+  render(div, search, filter)
 });
 
-function render(div, search) {
+function render(div, search, filter) {
   let container1 = document.createElement('div');
   container1.classList.add('result-container');
   let cont1Title = document.createElement('h1');
@@ -26,9 +27,12 @@ function render(div, search) {
   container3.classList.add('result-container');
   let cont3Title = document.createElement('h1');
   cont3Title.innerText = "Résultats par ingrédient";
+
+  let filterText = document.querySelector("#selectText");
+  filterText.innerHTML = filter;
   
   webService
-    .request(basicQuery(search))
+    .request(addFilter(basicQuery(search), filter))
     .then((response) => {
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
@@ -66,7 +70,7 @@ function render(div, search) {
     });
 
     webService
-    .request(countryQuery(search))
+    .request(addFilter(countryQuery(search), filter))
     .then((response) => {
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
@@ -104,7 +108,7 @@ function render(div, search) {
     });
 
     webService
-    .request(ingredientQuery(search))
+    .request(addFilter(ingredientQuery(search), filter))
     .then((response) => {
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
