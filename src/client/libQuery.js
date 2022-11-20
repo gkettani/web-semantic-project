@@ -43,6 +43,10 @@ export function addFilter(query, filter)
         query = `SELECT DISTINCT ?name, ?img, ?desc, ?ingredients WHERE{ {` + query;
         query = query + `} FILTER(!contains(lcase(?desc), "poulet") && !contains(lcase(?desc), "boeuf") && !contains(lcase(?desc), "porc") && !contains(lcase(?desc), "dinde") && !contains(lcase(?desc), "domestique")). 
         FILTER(!contains(lcase(?ingredients), "poulet") && !contains(lcase(?ingredients), "bœuf") && !contains(lcase(?ingredients), "porc") && !contains(lcase(?ingredients), "dinde") && !contains(lcase(?ingredients), "domestique")). }`;
-    } 
+    }else if(filter === "Plats sans porc"){
+        query = `SELECT DISTINCT ?name, ?img, ?desc, ?ingredients WHERE{ {` + query;
+        query = query + `} FILTER(!contains(lcase(?desc), "porc")). 
+        FILTER(!contains(lcase(?ingredients), "porc")). }`;
+    }
     return query;
 }
