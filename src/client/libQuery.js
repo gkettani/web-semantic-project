@@ -8,9 +8,10 @@ SELECT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?countryName; SEPARATOR=", ") A
 }`;
 
 export const countryQuery = (search) =>`
-SELECT DISTINCT ?name, ?img, ?desc WHERE {
+SELECT DISTINCT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?ingredientName; SEPARATOR=", ") AS ?ingredients WHERE {
         ?dish a dbo:Food; a owl:Thing; a wikidata:Q2095; dbo:country ?country; rdfs:label ?name; dbo:thumbnail ?img; rdfs:comment ?desc.
         ?country rdfs:label ?countryName.
+        OPTIONAL {?dish dbo:ingredient ?ingredient. ?ingredient rdfs:label ?ingredientName. FILTER(langMatches(lang(?ingredientName), "FR"))}
         FILTER(regex(?countryName, "${search}", "i") && langMatches(lang(?countryName), "FR") && langMatches(lang(?desc), "FR") && langMatches(lang(?name), "FR"))
 }`;
 
@@ -39,9 +40,9 @@ SELECT ?frName WHERE {
 export function addFilter(query, filter)
 { 
     if(filter === "Plats végétariens"){
-        var n = query.lastIndexOf("}");
-        if(n < 0) return query;
-        query = query.substring(0,n) + " FILTER NOT EXISTS { FILTER (contains(?desc, \"poulet\") || contains(?desc, \"boeuf\") || contains(?desc, \"porc\") || contains(?desc, \"dinde\") || contains(?desc, \"domestique\")). }" + query.substring(n);
+        query = `SELECT DISTINCT ?name, ?img, ?desc, ?ingredients WHERE{ {` + query;
+        query = query + `} FILTER(!contains(lcase(?desc), "poulet") && !contains(lcase(?desc), "boeuf") && !contains(lcase(?desc), "porc") && !contains(lcase(?desc), "dinde") && !contains(lcase(?desc), "domestique")). 
+        FILTER(!contains(lcase(?ingredients), "poulet") && !contains(lcase(?ingredients), "bœuf") && !contains(lcase(?ingredients), "porc") && !contains(lcase(?ingredients), "dinde") && !contains(lcase(?ingredients), "domestique")). }`;
     } 
     return query;
 }

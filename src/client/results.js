@@ -108,7 +108,7 @@ function render(div, search, filter) {
     });
 
     webService
-    .request(addFilter(ingredientQuery(search), filter))
+    .request(ingredientQuery(search))
     .then((response) => {
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
