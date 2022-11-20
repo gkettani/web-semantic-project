@@ -13,21 +13,39 @@ window.addEventListener('load', () => {
 });
 
 function render(div, search, filter) {
+
+  //div de la recherche par plat
+  let divPlats = document.createElement('div');
+  divPlats.classList.add('dishes-container');
+  //div de la recherche par region
+  let divRegions = document.createElement('div');
+  divRegions.classList.add("allRegions-container");
+  //div de la recherche par ingrédients
+  let divIngredients = document.createElement('div');
+  divIngredients.classList.add("ingredients-container");
+
+
+  //div contenant les plats (recherche par plat)
   let container1 = document.createElement('div');
   container1.classList.add('result-container');
+  //txt de recherche par plat
   let cont1Title = document.createElement('h1');
   cont1Title.innerText = "Résultats par plat";
 
-  let container2 = document.createElement('div');
-  container2.classList.add('result-container');
+  //txt de recherche par region
   let cont2Title = document.createElement('h1');
   cont2Title.innerText = "Résultats par cuisine régionale";
+  //obj contenant les div de chaque region et ses plats
+  var listContainer = {};
   
+  //div contenant les plats (recherche par ingrédient)
   let container3 = document.createElement('div');
   container3.classList.add('result-container');
+  //txt de recherche par ingrédient
   let cont3Title = document.createElement('h1');
   cont3Title.innerText = "Résultats par ingrédient";
 
+  //definition du filtre
   let filterText = document.querySelector("#selectText");
   filterText.innerHTML = filter;
   
@@ -61,8 +79,9 @@ function render(div, search, filter) {
       });
       if(container1.innerText)
       {
-        div.appendChild(cont1Title);
-        div.appendChild(container1);
+        divPlats.appendChild(cont1Title);
+        divPlats.appendChild(container1);
+        div.appendChild(divPlats);
       }
     })
     .catch((error) => {
@@ -95,12 +114,47 @@ function render(div, search, filter) {
         result.addEventListener('click', () => {
           redirect(`detail`, `search`, item.name.value);
         });
-        container2.appendChild(result);
+        //container2.appendChild(result);
+
+        if(!(listContainer[item.countryName.value] !== undefined)){
+          //le grand container de la région
+          listContainer[item.countryName.value] = document.createElement('div');
+          let conName = item.countryName.value;
+          listContainer[item.countryName.value].classList.add(conName.replace(/ /g,'_'));
+          listContainer[item.countryName.value].classList.add("region-container");
+          //description
+          let tempElem = document.createElement('h2');
+          tempElem.innerText = item.countryName.value;
+          tempElem.classList.add("RegionNameText");
+          tempElem.addEventListener('click', () => {
+            let dishList = tempElem.nextSibling;
+            if(dishList.getAttribute("customVis") == (null || "" || "visible"))
+            {
+              dishList.setAttribute("style", "display:none");
+              dishList.setAttribute("customVis", "notVisible");
+            }
+            else
+            {
+              dishList.setAttribute("style", "display:grid");
+              dishList.setAttribute("customVis", "visible");
+            }
+          });
+          listContainer[item.countryName.value].appendChild(tempElem);
+          //element
+          let newDiv = document.createElement('div');
+          newDiv.classList.add('result-container');
+          newDiv.setAttribute("customVis", "visible");
+          listContainer[item.countryName.value].appendChild(newDiv); 
+        }
+        listContainer[item.countryName.value].getElementsByClassName("result-container")[0].appendChild(result);
       });
-      if(container2.innerText)
+      if(Object.keys(listContainer).length!=0)
       {
-        div.appendChild(cont2Title);
-        div.appendChild(container2);
+        divRegions.appendChild(cont2Title);
+        for(const con in listContainer){
+          divRegions.appendChild(listContainer[con]);
+        }
+        div.appendChild(divRegions);
       }
     })
     .catch((error) => {
@@ -137,8 +191,9 @@ function render(div, search, filter) {
       });
       if(container3.innerText)
       {
-        div.appendChild(cont3Title);
-        div.appendChild(container3);
+        divIngredients.appendChild(cont3Title);
+        divIngredients.appendChild(container3);
+        div.appendChild(divIngredients);
       }
     })
     .catch((error) => {

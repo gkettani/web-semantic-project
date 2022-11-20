@@ -153,28 +153,6 @@ body {
     background-color: rgb(246, 189, 85);
 }
 
-/* .search-bar .search-button::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    z-index: 1;
-    font-size: 1.7rem;
-    border: 1px solid black;
-    border-radius: 0 0.5rem 0.5rem 0;
-    padding: 0.2rem 0;
-    background-color: rgba(241, 192, 100, 0.8);
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-}
-
-.search-bar .search-button:active::after {
-    opacity: 1;
-} */
-
 .filter{
   text-align: center;
 }
@@ -194,6 +172,10 @@ body {
     margin: auto;
     /* font-family: var(--ff-primary); */
     /* color: var(--clr-text-1); */
+}
+
+.RegionNameText {
+    cursor: pointer;
 }
 
 .result-container {

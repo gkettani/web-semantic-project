@@ -8,7 +8,7 @@ SELECT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?countryName; SEPARATOR=", ") A
 }`;
 
 export const countryQuery = (search) =>`
-SELECT DISTINCT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?ingredientName; SEPARATOR=", ") AS ?ingredients WHERE {
+SELECT DISTINCT ?name, ?img, ?desc, ?countryName, GROUP_CONCAT(DISTINCT ?ingredientName; SEPARATOR=", ") AS ?ingredients WHERE {
         ?dish a dbo:Food; a owl:Thing; a wikidata:Q2095; dbo:country ?country; rdfs:label ?name; dbo:thumbnail ?img; rdfs:comment ?desc.
         ?country rdfs:label ?countryName.
         OPTIONAL {?dish dbo:ingredient ?ingredient. ?ingredient rdfs:label ?ingredientName. FILTER(langMatches(lang(?ingredientName), "FR"))}
