@@ -37,16 +37,20 @@ SELECT ?frName WHERE {
     FILTER(regex(?enName, "^${search}$", "i") && langMatches(lang(?enName),"EN") && langMatches(lang(?frName),"FR"))
 }`;
 
-export function addFilter(query, filter)
+export function addFilter(query, filter, ingredientExclu)
 { 
     if(filter === "Plats végétariens"){
-        query = `SELECT DISTINCT ?name, ?img, ?desc, ?ingredients WHERE{ {` + query;
+        query = `SELECT DISTINCT ?name, ?img, ?desc, ?countryName, ?ingredients WHERE{ {` + query;
         query = query + `} FILTER(!contains(lcase(?desc), "poulet") && !contains(lcase(?desc), "boeuf") && !contains(lcase(?desc), "porc") && !contains(lcase(?desc), "dinde") && !contains(lcase(?desc), "domestique")). 
         FILTER(!contains(lcase(?ingredients), "poulet") && !contains(lcase(?ingredients), "bœuf") && !contains(lcase(?ingredients), "porc") && !contains(lcase(?ingredients), "dinde") && !contains(lcase(?ingredients), "domestique")). }`;
     }else if(filter === "Plats sans porc"){
-        query = `SELECT DISTINCT ?name, ?img, ?desc, ?ingredients WHERE{ {` + query;
+        query = `SELECT DISTINCT ?name, ?img, ?desc, ?countryName, ?ingredients WHERE{ {` + query;
         query = query + `} FILTER(!contains(lcase(?desc), "porc")). 
         FILTER(!contains(lcase(?ingredients), "porc")). }`;
+    }else if(filter === "Filtrer par ingrédients"){
+        query = `SELECT DISTINCT ?name, ?img, ?desc, ?countryName, ?ingredients WHERE{ {` + query;
+        query = query + `} FILTER(!contains(lcase(?desc), "${ingredientExclu}")). 
+        FILTER(!contains(lcase(?ingredients), "${ingredientExclu}")). }`;
     }
     return query;
 }

@@ -48,9 +48,17 @@ function render(div, search, filter) {
   //definition du filtre
   let filterText = document.querySelector("#selectText");
   filterText.innerHTML = filter;
+
+  //Récupération de l'ingrédient à exclure
+  if(filter === "Filtrer par ingrédients"){
+    var splitRecherche = search.split('-');
+    search = splitRecherche[0];
+    var ingredientExclu = splitRecherche[1];
+    console.log(ingredientExclu);
+  }
   
   webService
-    .request(addFilter(basicQuery(search), filter))
+    .request(addFilter(basicQuery(search), filter, ingredientExclu))
     .then((response) => {
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
@@ -89,7 +97,7 @@ function render(div, search, filter) {
     });
 
     webService
-    .request(addFilter(countryQuery(search), filter))
+    .request(addFilter(countryQuery(search), filter, ingredientExclu))
     .then((response) => {
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
