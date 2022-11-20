@@ -15,6 +15,9 @@ window.addEventListener('load', () => {
     option.addEventListener("click", function (event) {
       event.stopPropagation();
       selectText.innerHTML = this.innerHTML;
+      if(option.innerHTML === "Filtrer par ingrédients"){
+        searchInput.placeholder = "Recherche-Ingrédient à exclure";
+      }
     });
   }
 
