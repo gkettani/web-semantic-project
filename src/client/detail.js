@@ -14,6 +14,10 @@ function render(div, search) {
   webService
     .request(specificQuery(search))
     .then((response) => {
+      if (response.results.bindings.length === 0) {
+        div.innerHTML = `<h1>Auncune information disponible</h1>`;
+        return;
+      }
       response.results.bindings.forEach((item) => {
         //let detail = document.createElement('div');
         let subCol = document.createElement('div');

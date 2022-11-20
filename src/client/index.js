@@ -8,10 +8,12 @@ window.addEventListener('load', () => {
   let options = document.getElementsByClassName("option");
 
   select.addEventListener("click", function (event) {
+    event.stopPropagation();
     list.classList.toggle("open");
   });
   for(const option of options){
     option.addEventListener("click", function (event) {
+      event.stopPropagation();
       selectText.innerHTML = this.innerHTML;
     });
   }

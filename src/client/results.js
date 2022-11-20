@@ -2,14 +2,14 @@ import webService from './request.js';
 import { truncate, redirect } from './utils.js';
 import { basicQuery, countryQuery, ingredientQuery, addFilter} from './libQuery.js';
 
-
+let res = 0;
 window.addEventListener('load', () => {
   let div = document.querySelector('#global-container');
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const search = urlParams.get('search');
   const filter = urlParams.get('filter'); 
-  render(div, search, filter)
+  render(div, search, filter);
 });
 
 function render(div, search, filter) {
@@ -47,11 +47,12 @@ function render(div, search, filter) {
 
   //definition du filtre
   let filterText = document.querySelector("#selectText");
-  filterText.innerHTML = filter;
+  filterText.innerHTML = filter || "Aucun Filtre";
   
   webService
     .request(addFilter(basicQuery(search), filter))
     .then((response) => {
+      if (response.results.bindings.length === 0) res++;
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
         let img_container = document.createElement('div');
@@ -86,11 +87,20 @@ function render(div, search, filter) {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      if (res === 3) {
+        let noResult = document.createElement('h1');
+        noResult.innerText = 'Aucun résultat';
+        div.appendChild(noResult);
+      }
     });
+      
 
     webService
     .request(addFilter(countryQuery(search), filter))
     .then((response) => {
+      if (response.results.bindings.length === 0) res++;
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
         let img_container = document.createElement('div');
@@ -159,11 +169,19 @@ function render(div, search, filter) {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      if (res === 3) {
+        let noResult = document.createElement('h1');
+        noResult.innerText = 'Aucun résultat';
+        div.appendChild(noResult);
+      }
     });
 
     webService
     .request(ingredientQuery(search))
     .then((response) => {
+      if (response.results.bindings.length === 0) res++;
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
         let img_container = document.createElement('div');
@@ -198,5 +216,12 @@ function render(div, search, filter) {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      if (res === 3) {
+        let noResult = document.createElement('h1');
+        noResult.innerText = 'Aucun résultat';
+        div.appendChild(noResult);
+      }
     });
 }
