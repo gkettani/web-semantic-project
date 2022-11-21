@@ -86,10 +86,9 @@ function render(div, search, filter) {
       });
       if(container1.innerText)
       {
-        cont1Title.innerText = cont1Title.innerText + " ("+nbResponses+" résultats)"
+        cont1Title.innerText = cont1Title.innerText + " ("+nbResponses+" résultats)";
         divPlats.appendChild(cont1Title);
         divPlats.appendChild(container1);
-        div.appendChild(divPlats);
       }
     })
     .catch((error) => {
@@ -132,7 +131,6 @@ function render(div, search, filter) {
         result.addEventListener('click', () => {
           redirect(`detail`, `search`, item.name.value);
         });
-        //container2.appendChild(result);
 
         if(!(listContainer[item.countryName.value] !== undefined)){
           //le grand container de la région
@@ -186,7 +184,6 @@ function render(div, search, filter) {
           listContainer[con].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+ nbResponses[con]+" résultats)";
           divRegions.appendChild(listContainer[con]);
         }
-        div.appendChild(divRegions);
       }
     })
     .catch((error) => {
@@ -204,6 +201,7 @@ function render(div, search, filter) {
     .request(addFilter(ingredientQuery(search), filter, ingredientExclu))
     .then((response) => {
       if (response.results.bindings.length === 0) res++;
+      let nbResponses = response.results.bindings.length;
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
         let img_container = document.createElement('div');
@@ -231,9 +229,9 @@ function render(div, search, filter) {
       });
       if(container3.innerText)
       {
+        cont3Title.innerText = cont3Title.innerText + " ("+nbResponses+" résultats)";
         divIngredients.appendChild(cont3Title);
         divIngredients.appendChild(container3);
-        div.appendChild(divIngredients);
       }
     })
     .catch((error) => {
