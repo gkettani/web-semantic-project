@@ -308,6 +308,7 @@ body {
     color: rgb(255, 166, 0);
 }
 .ingredientsList ul li:hover {
+    color: black;
     text-decoration: underline rgb(255, 166, 0);
 }
 
