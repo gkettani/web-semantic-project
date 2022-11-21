@@ -7,23 +7,52 @@
     <link rel="stylesheet" href="/style/style.css"></link>
     <link rel="icon" type="image/x-icon" href="/rsrc/favicon.png"></link>
     <script type="module" src= "./client/index.js" charset="utf-8"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <title>Food'IF</title>
 </head>
 <body>
-  <!-- header>
-    <a href="index.html"><img src="/rsrc/favicon_rev.png", rel="La fourchette tech"></a>
-  </header -->
-
-  <div class="main-section">
-    <div class="section-desc">
-      <h1>Food'IF</h1>
-      <h2>Le moteur de recherche pour vous régaler</h2>
+  <header>
+    <div class="brand">
+      <a href="index.html" class="logo" title="Retourner à l'accueil">
+        <img src="rsrc/favicon_rev.png" alt="food" width="50px"/>
+        <h1>Food’IF</h1>
+      </a>
     </div>
     <div class="search-bar">
-      <input id="search-input" class="search-input" type="text" placeholder="Plat...">
+      <div id="select">
+          <p id="selectText">Aucun Filtre</p>
+          <img src="./rsrc/arrow.png" />
+          <ul id="list">
+            <li class="option">Aucun Filtre</li>
+            <li class="option">Plats végétariens</li>
+            <li class="option">Plats sans porc</li>
+            <li class="option">Filtrer par ingrédients</li>
+          </ul>
+      </div>
+      <input id="search-input" class="search-input" type="text" placeholder="Rechercher..."  autofocus>
       <button id="search-btn" class="search-button">Search</button>
     </div>
-  </div>
+  </header>
+
+  <main>
+    <div class="main-section">
+      <h1>Food'IF</h1>
+      <h2>Le moteur de recherche pour vous régaler</h2>
+      <svg viewBox="0 0 40 4" class="separator">
+        <path d="M0 0 L0 4 L40 4 L40 0 Q20 4 0 0" />
+      </svg>
+    </div>
+    <div class="map-container">
+      <div class="map-text">
+        <h1>Recherchez les plats à travers le monde</h1>
+      </div>
+      <script type="module" src= "./client/worldMap.js" charset="utf-8"></script>
+      <div id="chartdiv"></div>
+    </div>
+  </main>
 
   <footer>
     <div class="authors">
