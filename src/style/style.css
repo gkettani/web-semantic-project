@@ -178,7 +178,7 @@ body {
 }
 
 #details-container {
-    min-height: calc(100vh - 383px);
+    min-height: calc(100vh - 323px);
 }
 
 .RegionNameText {
