@@ -15,14 +15,11 @@ window.addEventListener('load', () => {
 function render(div, search, filter) {
 
   //div de la recherche par plat
-  let divPlats = document.createElement('div');
-  divPlats.classList.add('dishes-container');
+  let divPlats = document.getElementById('dishes-container');
   //div de la recherche par region
-  let divRegions = document.createElement('div');
-  divRegions.classList.add("allRegions-container");
+  let divRegions = document.getElementById('allRegions-container');
   //div de la recherche par ingrédients
-  let divIngredients = document.createElement('div');
-  divIngredients.classList.add("ingredients-container");
+  let divIngredients = document.getElementById('ingredients-container');
 
 
   //div contenant les plats (recherche par plat)
