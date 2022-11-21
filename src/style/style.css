@@ -302,6 +302,15 @@ body {
     object-fit: contain;
 }
 
+.ingredientsList ul li {
+    list-style-type: none;
+    cursor: pointer;
+    color: rgb(255, 166, 0);
+}
+.ingredientsList ul li:hover {
+    text-decoration: underline rgb(255, 166, 0);
+}
+
 header .brand {
     display: flex;
     flex-direction: row;

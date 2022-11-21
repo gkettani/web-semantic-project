@@ -1,5 +1,6 @@
 import webService from './request.js';
 import { specificQuery } from './libQuery.js';
+import { redirect } from './utils.js';
 
 
 window.addEventListener('load', () => {
@@ -62,12 +63,20 @@ function render(div, search) {
 
         if(item.ingredients.value) {
             let ingredients = document.createElement('div');
+            ingredients.classList.add("ingredientsList");
             let ingredientsTitle = document.createElement('h2');
-            let ingredientsNames = document.createElement('p');
+            let ingredientsList = document.createElement('ul');
+            item.ingredients.value.split(", ").forEach((ingredient) => {
+              let ingredientName = document.createElement('li');
+              ingredientName.innerText = ingredient;
+              ingredientName.addEventListener('click', () => {
+                redirect(`results`, `search`, ingredient);
+              });
+              ingredientsList.appendChild(ingredientName);
+            });
             ingredientsTitle.innerText = "Ingrédient(s)";
-            ingredientsNames.innerText = item.ingredients.value;
             ingredients.appendChild(ingredientsTitle);
-            ingredients.appendChild(ingredientsNames);
+            ingredients.appendChild(ingredientsList);
             subCol.appendChild(ingredients);
         }
         
