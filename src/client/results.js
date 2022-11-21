@@ -204,7 +204,7 @@ function render(div, search, filter) {
     });
 
     webService
-    .request(ingredientQuery(search))
+    .request(addFilter(ingredientQuery(search), filter, ingredientExclu))
     .then((response) => {
       if (response.results.bindings.length === 0) res++;
       response.results.bindings.forEach((item) => {

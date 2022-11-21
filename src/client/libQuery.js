@@ -25,7 +25,7 @@ SELECT ?name, ?img, ?desc, GROUP_CONCAT(DISTINCT ?countryName; SEPARATOR=", ") A
 }`;
 
 export const ingredientQuery = (search) => `
-SELECT ?name, ?ingredientName, ?img, ?desc WHERE {
+SELECT ?name, ?ingredientName, ?img, ?desc, GROUP_CONCAT(DISTINCT ?ingredientName; SEPARATOR=", ") AS ?ingredients WHERE {
     ?dish a dbo:Food; dbo:ingredient ?ingredient; rdfs:label ?name; dbo:thumbnail ?img; rdfs:comment ?desc.
     ?ingredient rdfs:label ?ingredientName.
     FILTER(regex(?ingredientName, "${search}", "i") && langMatches(lang(?ingredientName),"FR") && langMatches(lang(?name),"FR") && langMatches(lang(?desc),"FR"))
@@ -41,8 +41,8 @@ export function addFilter(query, filter, ingredientExclu)
 { 
     if(filter === "Plats végétariens"){
         query = `SELECT DISTINCT ?name, ?img, ?desc, ?countryName, ?ingredients WHERE{ {` + query;
-        query = query + `} FILTER(!contains(lcase(?desc), "poulet") && !contains(lcase(?desc), "boeuf") && !contains(lcase(?desc), "porc") && !contains(lcase(?desc), "dinde") && !contains(lcase(?desc), "domestique") && !contains(lcase(?desc), "steak") && !contains(lcase(?desc), "foie")). 
-        FILTER(!contains(lcase(?ingredients), "poulet") && !contains(lcase(?ingredients), "bœuf") && !contains(lcase(?ingredients), "porc") && !contains(lcase(?ingredients), "dinde") && !contains(lcase(?ingredients), "domestique") && !contains(lcase(?ingredients), "steak") && !contains(lcase(?ingredients), "foie")) && !contains(lcase(?ingredients), "viande")). }`;
+        query = query + `} FILTER(!contains(lcase(?desc), "poulet") && !contains(lcase(?desc), "bœuf") && !contains(lcase(?desc), "porc") && !contains(lcase(?desc), "dinde") && !contains(lcase(?desc), "saucisse")).
+        FILTER(!contains(lcase(?ingredients), "poulet") && !contains(lcase(?ingredients), "bœuf") && !contains(lcase(?ingredients), "porc") && !contains(lcase(?ingredients), "dinde") && !contains(lcase(?ingredients), "saucisse") && !contains(lcase(?ingredients), "viande") && !contains(lcase(?ingredients), "foie") && !contains(lcase(?ingredients), "steak") && !contains(lcase(?ingredients), "domestique")). }`;
     }else if(filter === "Plats sans porc"){
         query = `SELECT DISTINCT ?name, ?img, ?desc, ?countryName, ?ingredients WHERE{ {` + query;
         query = query + `} FILTER(!contains(lcase(?desc), "porc")). 
