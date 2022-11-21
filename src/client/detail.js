@@ -1,17 +1,18 @@
 import webService from './request.js';
-import { specificQuery } from './libQuery.js';
-import { redirect } from './utils.js';
+import { specificQuery, countryQuery } from './libQuery.js';
+import { truncate, redirect } from './utils.js';
 
 
 window.addEventListener('load', () => {
   let div = document.querySelector('#details-container');
+  let more = document.querySelector('#see-more');
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const search = urlParams.get('search'); 
-  render(div, search)
+  render(div, more, search)
 });
 
-function render(div, search) {
+function render(div, more, search) {
   webService
     .request(specificQuery(search))
     .then((response) => {
@@ -45,9 +46,77 @@ function render(div, search) {
             let countriesNames = document.createElement('p');
             countriesTitle.innerText = "Pays lié(s)";
             countriesNames.innerText = item.countries.value;
+
+            var nbCountries = item.countries.value.split(", ").length;
+            var country;
+            do {
+              let index = Math.floor(Math.random() * nbCountries);
+              country = item.countries.value.split(", ")[index];
+            }
+            while(country.includes("(") || country.includes(")"));
+            console.log(country);
+
             countries.appendChild(countriesTitle);
             countries.appendChild(countriesNames);
             subCol.appendChild(countries);
+
+            webService
+              .request(countryQuery(country))
+              .then((response) => {
+                if (response.results.bindings.length === 0) {
+                  return;
+                }
+                let nbResponses = response.results.bindings.length;
+                const maxMoreResults = 3;
+                let dishes = new Array();
+
+                let moreContainer = document.createElement('div');
+                moreContainer.classList.add('result-container');
+                let moreTitle = document.createElement('h1');
+                moreTitle.innerText = "Quelques plats d'une même région culinaire";
+
+                response.results.bindings.forEach((item) => {
+                  let result = document.createElement('div');
+                  let img_container = document.createElement('div');
+                  let img = document.createElement('img');
+                  img.src = item.img.value;
+                  img.onerror = function() { this.error=null;this.src='../rsrc/unknownDish.png'; }
+                  img.alt = item.name.value;
+                  img.classList.add('result__img');
+                  img_container.appendChild(img);
+                  img_container.classList.add('result__img-container');
+                  result.appendChild(img_container);
+                  result.classList.add('result');
+                  let name = document.createElement('h2');
+                  name.classList.add('result__name');
+                  name.innerText = item.name.value;
+                  result.appendChild(name);
+                  let desc = document.createElement('p');
+                  desc.classList.add('result__desc');
+                  desc.innerText = truncate(item.desc.value, 200);
+                  result.appendChild(desc);
+                  result.addEventListener('click', () => {
+                    redirect(`detail`, `search`, item.name.value);
+                  });
+                  dishes.push(result);
+                });
+                let indexArray = new Array();
+                let i;
+                for(i = 0 ; i < maxMoreResults ; ++i) {
+                  var index;
+                  do {
+                    index = Math.floor(Math.random() * nbResponses);
+                  }
+                  while(indexArray.includes(index));
+                  indexArray.push(index);
+                  moreContainer.appendChild(dishes[index]);
+                }
+                more.appendChild(moreTitle);
+                more.appendChild(moreContainer);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
         }
 
         if(item.regions.value) {
