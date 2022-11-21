@@ -25,6 +25,7 @@ function render(div, search, filter) {
   //div contenant les plats (recherche par plat)
   let container1 = document.createElement('div');
   container1.classList.add('result-container');
+  container1.setAttribute("customVis", "visible");
   //txt de recherche par plat
   let cont1Title = document.createElement('h1');
   cont1Title.innerText = "Résultats par plat";
@@ -237,6 +238,7 @@ function render(div, search, filter) {
         });
         divRegions.appendChild(descDiv);
         let divRegionPlates = document.createElement("div");
+        divRegionPlates.setAttribute("customVis", "visible");
         //divRegions.appendChild(cont2Title);
         let conKeys = Object.keys(listContainer).sort();
         conKeys.forEach((con,i) => {
@@ -364,6 +366,7 @@ function render(div, search, filter) {
         });
         divIngredients.appendChild(descDiv);
         let divRegionPlates = document.createElement("div");
+        divRegionPlates.setAttribute("customVis", "visible");
         //divRegions.appendChild(cont2Title);
         let ingKeys = Object.keys(listContainer2).sort();
         ingKeys.forEach((ing,i) => {
