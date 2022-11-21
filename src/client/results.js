@@ -88,7 +88,7 @@ function render(div, search, filter) {
       });
       if(container1.innerText)
       {
-        cont1Title.innerText = cont1Title.innerText + " ("+nbResponses+" résultats)";
+        cont1Title.innerText = cont1Title.innerText + " ("+nbResponses+(nbResponses==1?" résultat)":" résultats)");
         let descDiv = document.createElement('div');
         descDiv.classList.add("RegionNameText");
         descDiv.classList.add("arrowDefault");
@@ -208,7 +208,7 @@ function render(div, search, filter) {
       });
       if(Object.keys(listContainer).length!=0)
       {
-        cont2Title.innerText = cont2Title.innerText + " ("+nbTotalResponses+" résultats)";
+        cont2Title.innerText = cont2Title.innerText + " ("+nbTotalResponses+(nbTotalResponses==1?" résultat)":" résultats)");
 
         let descDiv = document.createElement('div');
         descDiv.classList.add("RegionNameText");
@@ -242,7 +242,7 @@ function render(div, search, filter) {
         //divRegions.appendChild(cont2Title);
         let conKeys = Object.keys(listContainer).sort();
         conKeys.forEach((con,i) => {
-          listContainer[con].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+ nbResponses[con]+" résultats)";
+          listContainer[con].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+nbResponses[con]+(nbResponses[con]==1?" résultat)":" résultats)");
           divRegionPlates.appendChild(listContainer[con]);
         });
         divRegions.appendChild(divRegionPlates);
@@ -336,7 +336,7 @@ function render(div, search, filter) {
       });
       if(Object.keys(listContainer2).length!=0)
       {
-        cont3Title.innerText = cont3Title.innerText + " ("+nbTotalResponses+" résultats)";
+        cont3Title.innerText = cont3Title.innerText + " ("+nbTotalResponses+(nbTotalResponses==1?" résultat)":" résultats)");
 
         let descDiv = document.createElement('div');
         descDiv.classList.add("RegionNameText");
@@ -370,7 +370,7 @@ function render(div, search, filter) {
         //divRegions.appendChild(cont2Title);
         let ingKeys = Object.keys(listContainer2).sort();
         ingKeys.forEach((ing,i) => {
-          listContainer2[ing].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+ nbResponses[ing]+" résultats)";
+          listContainer2[ing].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+nbResponses[ing]+(nbResponses[ing]==1?" résultat)":" résultats)");
           divRegionPlates.appendChild(listContainer2[ing]);
         });
         divIngredients.appendChild(divRegionPlates);
