@@ -183,6 +183,30 @@ body {
 
 .RegionNameText {
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.RegionNameText h2 {
+    text-decoration: underline rgb(246, 189, 85);
+}
+
+.RegionNameText img {
+    max-width: 40px;
+}
+
+.RegionNameText.arrowDefault {
+    align-items: flex-start;
+}
+.RegionNameText.arrowDefault img {
+    rotate: 0deg;
+    transition: rotate 0.2s ease-in-out;
+}
+
+.RegionNameText.arrowUp img {
+    rotate: -90deg;
+    transition: rotate 0.2s ease-in-out;
 }
 
 .result-container {

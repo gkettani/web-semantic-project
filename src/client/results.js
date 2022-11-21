@@ -144,23 +144,34 @@ function render(div, search, filter) {
           listContainer[item.countryName.value].classList.add(conName.replace(/ /g,'_'));
           listContainer[item.countryName.value].classList.add("region-container");
           //description
-          let tempElem = document.createElement('h2');
-          tempElem.innerText = item.countryName.value;
-          tempElem.classList.add("RegionNameText");
-          tempElem.addEventListener('click', () => {
-            let dishList = tempElem.nextSibling;
+          let descDiv = document.createElement('div');
+          descDiv.classList.add("RegionNameText");
+          descDiv.classList.add("arrowDefault");
+          let descTitle = document.createElement('h2');
+          descTitle.innerText = item.countryName.value;
+          let descArrow = document.createElement('img');
+          descArrow.src = '../rsrc/arrow.png';
+          descArrow.alt = 'description arrow';
+          descDiv.appendChild(descTitle);
+          descDiv.appendChild(descArrow);
+          descDiv.addEventListener('click', () => {
+            let dishList = descDiv.nextSibling;
             if(dishList.getAttribute("customVis") == (null || "" || "visible"))
             {
+              descDiv.classList.add("arrowUp");
+              descDiv.classList.remove("arrowDefault");
               dishList.setAttribute("style", "display:none");
               dishList.setAttribute("customVis", "notVisible");
             }
             else
             {
+              descDiv.classList.add("arrowDefault");
+              descDiv.classList.remove("arrowUp");
               dishList.setAttribute("style", "display:grid");
               dishList.setAttribute("customVis", "visible");
             }
           });
-          listContainer[item.countryName.value].appendChild(tempElem);
+          listContainer[item.countryName.value].appendChild(descDiv);
           nbResponses[item.countryName.value] = 0;
           //element
           let newDiv = document.createElement('div');
@@ -175,7 +186,7 @@ function render(div, search, filter) {
       {
         divRegions.appendChild(cont2Title);
         for(const con in listContainer){
-          listContainer[con].getElementsByClassName("RegionNameText")[0].innerText += " ("+ nbResponses[con]+" résultats)";
+          listContainer[con].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+ nbResponses[con]+" résultats)";
           divRegions.appendChild(listContainer[con]);
         }
         div.appendChild(divRegions);
