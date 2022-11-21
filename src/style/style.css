@@ -28,14 +28,14 @@ main {
 }
 
 footer{
-    margin-top: 50px;
-    height: 100px;
+    margin-top: 20px;
+    height: 70px;
     background-color: rgb(246, 189, 85);
     display: flex;
     align-items: center;
     justify-content: center;
     color: black;
-    font-size: 1.3rem;
+    font-size: 1rem;
     font-weight: bold;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
