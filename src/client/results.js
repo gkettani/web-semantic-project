@@ -61,6 +61,7 @@ function render(div, search, filter) {
     .request(addFilter(basicQuery(search), filter, ingredientExclu))
     .then((response) => {
       if (response.results.bindings.length === 0) res++;
+      let nbResponses = response.results.bindings.length;
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
         let img_container = document.createElement('div');
@@ -88,6 +89,7 @@ function render(div, search, filter) {
       });
       if(container1.innerText)
       {
+        cont1Title.innerText = cont1Title.innerText + " ("+nbResponses+" résultats)"
         divPlats.appendChild(cont1Title);
         divPlats.appendChild(container1);
         div.appendChild(divPlats);
@@ -109,6 +111,7 @@ function render(div, search, filter) {
     .request(addFilter(countryQuery(search), filter, ingredientExclu))
     .then((response) => {
       if (response.results.bindings.length === 0) res++;
+      let nbResponses = {};
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
         let img_container = document.createElement('div');
@@ -158,6 +161,7 @@ function render(div, search, filter) {
             }
           });
           listContainer[item.countryName.value].appendChild(tempElem);
+          nbResponses[item.countryName.value] = 0;
           //element
           let newDiv = document.createElement('div');
           newDiv.classList.add('result-container');
@@ -165,11 +169,13 @@ function render(div, search, filter) {
           listContainer[item.countryName.value].appendChild(newDiv); 
         }
         listContainer[item.countryName.value].getElementsByClassName("result-container")[0].appendChild(result);
+        nbResponses[item.countryName.value] = nbResponses[item.countryName.value] + 1;
       });
       if(Object.keys(listContainer).length!=0)
       {
         divRegions.appendChild(cont2Title);
         for(const con in listContainer){
+          listContainer[con].getElementsByClassName("RegionNameText")[0].innerText += " ("+ nbResponses[con]+" résultats)";
           divRegions.appendChild(listContainer[con]);
         }
         div.appendChild(divRegions);
