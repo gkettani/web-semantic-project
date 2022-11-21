@@ -28,7 +28,7 @@ export const ingredientQuery = (search) => `
 SELECT ?name, ?ingredientName, ?img, ?desc, GROUP_CONCAT(DISTINCT ?ingredientName; SEPARATOR=", ") AS ?ingredients WHERE {
     ?dish a dbo:Food; dbo:ingredient ?ingredient; rdfs:label ?name; dbo:thumbnail ?img; rdfs:comment ?desc.
     ?ingredient rdfs:label ?ingredientName.
-    FILTER(regex(?ingredientName, "^${search}$", "i") && langMatches(lang(?ingredientName),"FR") && langMatches(lang(?name),"FR") && langMatches(lang(?desc),"FR"))
+    FILTER(regex(?ingredientName, "${search}", "i") && langMatches(lang(?ingredientName),"FR") && langMatches(lang(?name),"FR") && langMatches(lang(?desc),"FR"))
 }`;
 
 export const translateToFR = (search) => `

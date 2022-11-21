@@ -34,6 +34,7 @@ function render(div, search, filter) {
   cont2Title.innerText = "Résultats par cuisine régionale";
   //obj contenant les div de chaque region et ses plats
   var listContainer = {};
+  var listContainer2 = {};
   
   //div contenant les plats (recherche par ingrédient)
   let container3 = document.createElement('div');
@@ -87,7 +88,33 @@ function render(div, search, filter) {
       if(container1.innerText)
       {
         cont1Title.innerText = cont1Title.innerText + " ("+nbResponses+" résultats)";
-        divPlats.appendChild(cont1Title);
+        let descDiv = document.createElement('div');
+        descDiv.classList.add("RegionNameText");
+        descDiv.classList.add("arrowDefault");
+        let descTitle = cont1Title;
+        let descArrow = document.createElement('img');
+        descArrow.src = '../rsrc/arrow.png';
+        descArrow.alt = 'description arrow';
+        descDiv.appendChild(descTitle);
+        descDiv.appendChild(descArrow);
+        descDiv.addEventListener('click', () => {
+          let dishList = descDiv.nextSibling;
+          if(dishList.getAttribute("customVis") == (null || "" || "visible"))
+          {
+            descDiv.classList.add("arrowUp");
+            descDiv.classList.remove("arrowDefault");
+            dishList.setAttribute("style", "display:none");
+            dishList.setAttribute("customVis", "notVisible");
+          }
+          else
+          {
+            descDiv.classList.add("arrowDefault");
+            descDiv.classList.remove("arrowUp");
+            dishList.setAttribute("style", "display:grid");
+            dishList.setAttribute("customVis", "visible");
+          }
+        });
+        divPlats.appendChild(descDiv);
         divPlats.appendChild(container1);
       }
     })
@@ -107,6 +134,7 @@ function render(div, search, filter) {
     .request(addFilter(countryQuery(search), filter, ingredientExclu))
     .then((response) => {
       if (response.results.bindings.length === 0) res++;
+      let nbTotalResponses = response.results.bindings.length;
       let nbResponses = {};
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
@@ -179,11 +207,43 @@ function render(div, search, filter) {
       });
       if(Object.keys(listContainer).length!=0)
       {
-        divRegions.appendChild(cont2Title);
-        for(const con in listContainer){
+        cont2Title.innerText = cont2Title.innerText + " ("+nbTotalResponses+" résultats)";
+
+        let descDiv = document.createElement('div');
+        descDiv.classList.add("RegionNameText");
+        descDiv.classList.add("arrowDefault");
+        let descTitle = cont2Title;
+        let descArrow = document.createElement('img');
+        descArrow.src = '../rsrc/arrow.png';
+        descArrow.alt = 'description arrow';
+        descDiv.appendChild(descTitle);
+        descDiv.appendChild(descArrow);
+        descDiv.addEventListener('click', () => {
+          let dishList = descDiv.nextSibling;
+          if(dishList.getAttribute("customVis") == (null || "" || "visible"))
+          {
+            descDiv.classList.add("arrowUp");
+            descDiv.classList.remove("arrowDefault");
+            dishList.setAttribute("style", "display:none");
+            dishList.setAttribute("customVis", "notVisible");
+          }
+          else
+          {
+            descDiv.classList.add("arrowDefault");
+            descDiv.classList.remove("arrowUp");
+            dishList.setAttribute("style", "display:grid");
+            dishList.setAttribute("customVis", "visible");
+          }
+        });
+        divRegions.appendChild(descDiv);
+        let divRegionPlates = document.createElement("div");
+        //divRegions.appendChild(cont2Title);
+        let conKeys = Object.keys(listContainer).sort();
+        conKeys.forEach((con,i) => {
           listContainer[con].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+ nbResponses[con]+" résultats)";
-          divRegions.appendChild(listContainer[con]);
-        }
+          divRegionPlates.appendChild(listContainer[con]);
+        });
+        divRegions.appendChild(divRegionPlates);
       }
     })
     .catch((error) => {
@@ -201,7 +261,8 @@ function render(div, search, filter) {
     .request(addFilter(ingredientQuery(search), filter, ingredientExclu))
     .then((response) => {
       if (response.results.bindings.length === 0) res++;
-      let nbResponses = response.results.bindings.length;
+      let nbTotalResponses = response.results.bindings.length;
+      let nbResponses = {};
       response.results.bindings.forEach((item) => {
         let result = document.createElement('div');
         let img_container = document.createElement('div');
@@ -225,13 +286,91 @@ function render(div, search, filter) {
         result.addEventListener('click', () => {
           redirect(`detail`, `search`, item.name.value);
         });
-        container3.appendChild(result);
+        //container3.appendChild(result);
+        if(!(listContainer2[item.ingredientName.value] !== undefined)){
+          //le grand container de la région
+          listContainer2[item.ingredientName.value] = document.createElement('div');
+          let ingName = item.ingredientName.value;
+          listContainer2[item.ingredientName.value].classList.add(ingName.replace(/ /g,'_'));
+          listContainer2[item.ingredientName.value].classList.add("region-container");
+          //description
+          let descDiv = document.createElement('div');
+          descDiv.classList.add("RegionNameText");
+          descDiv.classList.add("arrowDefault");
+          let descTitle = document.createElement('h2');
+          descTitle.innerText = item.ingredientName.value;
+          let descArrow = document.createElement('img');
+          descArrow.src = '../rsrc/arrow.png';
+          descArrow.alt = 'description arrow';
+          descDiv.appendChild(descTitle);
+          descDiv.appendChild(descArrow);
+          descDiv.addEventListener('click', () => {
+            let dishList = descDiv.nextSibling;
+            if(dishList.getAttribute("customVis") == (null || "" || "visible"))
+            {
+              descDiv.classList.add("arrowUp");
+              descDiv.classList.remove("arrowDefault");
+              dishList.setAttribute("style", "display:none");
+              dishList.setAttribute("customVis", "notVisible");
+            }
+            else
+            {
+              descDiv.classList.add("arrowDefault");
+              descDiv.classList.remove("arrowUp");
+              dishList.setAttribute("style", "display:grid");
+              dishList.setAttribute("customVis", "visible");
+            }
+          });
+          listContainer2[item.ingredientName.value].appendChild(descDiv);
+          nbResponses[item.ingredientName.value] = 0;
+          //element
+          let newDiv = document.createElement('div');
+          newDiv.classList.add('result-container');
+          newDiv.setAttribute("customVis", "visible");
+          listContainer2[item.ingredientName.value].appendChild(newDiv); 
+        }
+        listContainer2[item.ingredientName.value].getElementsByClassName("result-container")[0].appendChild(result);
+        nbResponses[item.ingredientName.value] = nbResponses[item.ingredientName.value] + 1;
       });
-      if(container3.innerText)
+      if(Object.keys(listContainer2).length!=0)
       {
-        cont3Title.innerText = cont3Title.innerText + " ("+nbResponses+" résultats)";
-        divIngredients.appendChild(cont3Title);
-        divIngredients.appendChild(container3);
+        cont3Title.innerText = cont3Title.innerText + " ("+nbTotalResponses+" résultats)";
+
+        let descDiv = document.createElement('div');
+        descDiv.classList.add("RegionNameText");
+        descDiv.classList.add("arrowDefault");
+        let descTitle = cont3Title;
+        let descArrow = document.createElement('img');
+        descArrow.src = '../rsrc/arrow.png';
+        descArrow.alt = 'description arrow';
+        descDiv.appendChild(descTitle);
+        descDiv.appendChild(descArrow);
+        descDiv.addEventListener('click', () => {
+          let dishList = descDiv.nextSibling;
+          if(dishList.getAttribute("customVis") == (null || "" || "visible"))
+          {
+            descDiv.classList.add("arrowUp");
+            descDiv.classList.remove("arrowDefault");
+            dishList.setAttribute("style", "display:none");
+            dishList.setAttribute("customVis", "notVisible");
+          }
+          else
+          {
+            descDiv.classList.add("arrowDefault");
+            descDiv.classList.remove("arrowUp");
+            dishList.setAttribute("style", "display:grid");
+            dishList.setAttribute("customVis", "visible");
+          }
+        });
+        divIngredients.appendChild(descDiv);
+        let divRegionPlates = document.createElement("div");
+        //divRegions.appendChild(cont2Title);
+        let ingKeys = Object.keys(listContainer2).sort();
+        ingKeys.forEach((ing,i) => {
+          listContainer2[ing].getElementsByClassName("RegionNameText")[0].firstChild.innerText += " ("+ nbResponses[ing]+" résultats)";
+          divRegionPlates.appendChild(listContainer2[ing]);
+        });
+        divIngredients.appendChild(divRegionPlates);
       }
     })
     .catch((error) => {
