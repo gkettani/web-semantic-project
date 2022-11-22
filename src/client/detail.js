@@ -53,7 +53,7 @@ function render(div, more, search) {
               let index = Math.floor(Math.random() * nbCountries);
               country = item.countries.value.split(", ")[index];
             }
-            while(country.includes("(") || country.includes(")"));
+            while(nbCountries != 1 && (country.includes("(") || country.includes(")")));
             console.log(country);
 
             countries.appendChild(countriesTitle);
